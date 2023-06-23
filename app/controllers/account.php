@@ -3,7 +3,12 @@
 class Account extends Controller
 {
     public function index(){
-        $data['page_title'] = "My Account";
+        $user = $this->load_model('User');
+        $user_data  = $user->check_login();
+        if (is_object($user_data )) {
+            $data['user_data']= $user_data ;
+        }
+        $data['page_title'] = "Account";
         $this->view("account", $data);
     }
 }

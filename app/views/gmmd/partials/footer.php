@@ -4,6 +4,11 @@
     <div class="container">
         <div class="footer-widget">
             <div class="widget">
+                <div class="widget-content">
+                    <ul>
+                        <li><a href="<?=ROOT ?>admin">Admin</a></li>
+                    </ul>
+                </div>
                 <div class="widget-heading">
                     <h3>Important Link</h3>
                 </div>

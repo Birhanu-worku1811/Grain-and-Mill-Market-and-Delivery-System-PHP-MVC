@@ -6,6 +6,8 @@ class Database{
         try {
             $string = DB_TYPE.":host=".DB_HOST.";dbname=".DB_NAME;
             self::$dbConn = new PDO($string, DB_USER, DB_PASSWORD);
+            self::$dbConn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
         } catch (PDOException $e){
             die($e->getMessage());
         }
@@ -15,7 +17,7 @@ class Database{
         if (self::$dbConn){
             return self::$dbConn;
         }
-        return $instance = new self();
+        return $newInstance = new self();
     }
 
     //reading database
@@ -24,7 +26,7 @@ class Database{
         $result = $stmt->execute($data);
         if ($result) {
             $data = $stmt->fetchAll(PDO::FETCH_OBJ);
-            if (is_array($data)) {
+            if (is_array($data) && count($data)>0) {
                 return $data;
             }
         }
@@ -37,8 +39,10 @@ class Database{
         $result = $stmt->execute($data);
         if ($result) {
             return true;
+        }else{
+            echo self::$dbConn->errorInfo();
+            return false;
         }
-        return false;
     }
 }
-$db = Database::getInstance();
+//$db = Database::getInstance();

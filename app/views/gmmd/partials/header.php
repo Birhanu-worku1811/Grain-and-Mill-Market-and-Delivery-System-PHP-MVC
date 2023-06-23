@@ -5,12 +5,14 @@
     <!-- Title -->
     <title><?php echo $data['page_title']?> | Grain Mill Market and Delivery</title>
     <!-- Style Sheet -->
+    <link rel="stylesheet" type="text/css" href="<?= ASSETS.THEME ?>CSS/market.css"/>
+    <link rel="stylesheet" type="text/css" href="<?= ASSETS.THEME ?>CSS/account.css" />
     <link rel="stylesheet" type="text/css" href="<?= ASSETS.THEME ?>CSS/checkout.css"/>
     <link rel="stylesheet" type="text/css" href="<?= ASSETS.THEME ?>CSS/global.css"/>
     <link rel="stylesheet" type="text/css" href="<?= ASSETS.THEME ?>CSS/header.css">
+    <link rel="stylesheet" type="text/css" href="<?= ASSETS.THEME ?>CSS/cart.css"/>
     <link rel="stylesheet" type="text/css" href="<?= ASSETS.THEME ?>CSS/index.css"/>
     <link rel="stylesheet" type="text/css" href="<?= ASSETS.THEME ?>CSS/footer.css"/>
-    <link rel="stylesheet" type="text/css" href="<?= ASSETS.THEME ?>CSS/market.css"/>
 </head>
 
 <style>
@@ -50,29 +52,30 @@
                     </a>
             </div> <!-- logo -->
             <div class="shop-icon">
+                <?php
+                if (isset($data['user_data'])):
+                ?>
                 <div class="dropdown">
-                    <?php
-//                    if (session_status() === PHP_SESSION_NONE) {
-//                        @session_start();
-//                    }
-//                    if (isset($_SESSION['logged_in'])&& $_SESSION['logged_in']){
-//                    ?>
                     <div class="profile-picture">
                          <img src="<?= ASSETS.THEME ?>img/icons/account.png" alt="Profile Picture">
                     </div>
                     <div class="dropdown-menu wishlist-item">
-                        <?php
+                        <a href="<?= ROOT?>account">
+                            <?php
+                            echo $data['user_data']->username."<br>";
+                            echo $data['user_data']->Email;
+                            ?>
+                        </a>
 
-//                        echo "<h1 style='color: blue'>".$_SESSION['user_details']['username']."</h1>";
-//                        echo "<h1 style='color: green'>".$_SESSION['user_details']['Email']."</h1>";
-                        ?>
                         <ul>
-                            <li><a href="<?=ROOT ?>account">My Account</a></li>
                             <li><a href="<?=ROOT ?>orders">My Orders</a></li>
                             <li><a href="<?=ROOT ?>logout">Log Out</a></li>
                         </ul>
                     </div>
                 </div>
+                <?php
+                endif;
+                ?>
                 <div class="dropdown">
                     <img src="<?= ASSETS.THEME ?>img/icons/shopping_cart.png">
                     <div class="dropdown-menu">
@@ -87,13 +90,15 @@
                 <ul>
                     <li><a href="<?=ROOT ?>index">HOME</a></li>
                     <li><a href="<?=ROOT ?>market">Market</a></li>
-                    <li><a href="<?=ROOT ?>register">Register</a></li>
+                    <li><a href="<?=ROOT ?>orders">My Orders</a></li>
+                    <li><a href="<?=ROOT ?>contact">Contact</a></li>
+                    <li><a href="<?=ROOT ?>about">About us</a></li>
                     <?php
-//                    if (!isset($_SESSION['logged_in'])){
+                    if (!isset($data['user_data'])){
                         ?>
+                        <li><a href="<?=ROOT ?>register">Register</a></li>
                         <li><a href="<?=ROOT ?>login">SIGN IN</a></li>
-                    <?php //} ?>
-
+                    <?php } ?>
                 </ul>
             </div>
             <div class="search-bar">
